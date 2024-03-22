@@ -1,0 +1,21 @@
+## Git convention
+
+- **commit message**
+    - feat : 기능의 추가가 있을 때
+    - refactor : 기존의 코드를 리팩토링 했을 때
+    - chore : 코드의 논리에 영향이 없는 작업. 변수명 변경 등등
+    - design : 디자인 변경
+    - hotfix : 버그가 발견되어 급하게 고쳤을 경우
+    - docs : 문서에 대한 수정
+    - rename : 파일 이름의 변경 or 파일의 이동
+    - remove : 파일의 삭제
+- **branch**
+    - **필수 branch**
+        - **main : production 배포용**
+        - **development : 개발 배포용**
+        - **code-review : 기본적으로 개발을 진행하고 PR을 날릴 곳**
+    - **branch naming**
+        
+        `**사용자_이름-MM-DD-Freature_id-Freature_Name**`
+        
+        **ex) sangdon-08-02-B0023-user-sign-up**
