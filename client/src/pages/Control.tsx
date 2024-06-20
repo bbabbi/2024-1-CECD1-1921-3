@@ -21,7 +21,12 @@ const ControlPage: React.FC = () => {
     <div className="control-page">
       <header className="header">
         <div className="header-left">
-          <h1>1921 동국대학교</h1>
+          <h1 className="title">
+            <span className="bold highlight">1</span>
+            <span className="bold">9</span>
+            <span className="bold">2</span>
+            <span className="bold highlight">1</span> 동국대학교
+          </h1>
           <p>Mobius 플랫폼 기반 전력제어 시스템</p>
         </div>
         <div className="header-right">
@@ -42,6 +47,7 @@ const ControlPage: React.FC = () => {
           <button>경고기록</button>
         </div>
         <div className="filters">
+          <label className="filter-label">호실 선택</label>
           <select>
             <option>6144호</option>
           </select>
