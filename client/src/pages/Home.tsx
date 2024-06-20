@@ -8,7 +8,12 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <header className="header">
         <div className="header-left">
-          <h1>1921 동국대학교</h1>
+          <h1 className="title">
+            <span className="bold highlight">1</span>
+            <span className="bold">9</span>
+            <span className="bold">2</span>
+            <span className="bold highlight">1</span> 동국대학교
+          </h1>
           <p>Mobius 플랫폼 기반 전력제어 시스템</p>
         </div>
         <div className="header-right">
@@ -17,7 +22,7 @@ const HomePage: React.FC = () => {
         </div>
       </header>
       <nav className="nav">
-        <button>홈</button>
+        <button className="active">홈</button>
         <button>IoT 기기 현황</button>
         <button>데이터 관리</button>
         <button>About 1921</button>
@@ -32,7 +37,7 @@ const HomePage: React.FC = () => {
           <FontAwesomeIcon icon={faBatteryThreeQuarters} className="icon" />
           <FontAwesomeIcon icon={faBatteryFull} className="icon" />
         </div>
-        <h2>제어 및 모니터링</h2>
+        <h2>모니터링</h2>
         <div className="buttons">
           <div className="button">
             <FontAwesomeIcon icon={faSearch} className="button-icon" />
