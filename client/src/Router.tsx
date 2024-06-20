@@ -12,7 +12,7 @@ const Router: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/control" element={<Control />} />
         <Route path="/graph" element={<Graph />} />
-        <Route path="/warninglog/:id" element={<WarningLog />} />
+        <Route path="/warninglog" element={<WarningLog />} />
       </Routes>
     </BrowserRouter>
   );

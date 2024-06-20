@@ -16,13 +16,13 @@ ReactDOM.render(
 
 reportWebVitals();
 
-// const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-// root.render(
+// ReactDOM.render(
 //   <React.StrictMode>
-//     <Router>
-//       <App />
-//     </Router>
-//   </React.StrictMode>
+//     <BrowserRouter>
+//       <Router />
+//     </BrowserRouter>
+//   </React.StrictMode>,
+//   document.getElementById('root')
 // );
 
 
