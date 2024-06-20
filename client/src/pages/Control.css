@@ -1,0 +1,127 @@
+.control-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.header-left p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.header-right span {
+  margin-right: 10px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #d4d4d4;
+}
+
+.nav button {
+  margin: 10px;
+  padding: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav .active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.controls button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.controls .active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.filters select {
+  margin: 0 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.device-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.device-table th, .device-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.device-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.device-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.device-table tr:hover {
+  background-color: #ddd;
+}
+
+.toggle-button {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-button.on {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toggle-button.off {
+  background-color: #555;
+  color: white;
+}
