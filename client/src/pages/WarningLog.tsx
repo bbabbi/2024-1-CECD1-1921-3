@@ -27,10 +27,10 @@ const WarningLogPage: React.FC = () => {
       <header className="header">
         <div className="header-left">
           <h1 className="title">
-            <span className="highlight">1</span>
+            <span className="bold highlight">1</span>
             <span className="bold">9</span>
             <span className="bold">2</span>
-            <span className="highlight">1</span> 동국대학교
+            <span className="bold highlight">1</span> 동국대학교
           </h1>
           <p>Mobius 플랫폼 기반 전력제어 시스템</p>
         </div>
