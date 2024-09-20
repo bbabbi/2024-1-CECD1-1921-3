@@ -1,0 +1,222 @@
+/* 공통 스타일 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.control-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 1440px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+/* 제목 스타일 수정 */
+.header-left h1 {
+  margin: 0;
+  font-size: 32px; /* 글자 크기 키움 */
+  display: flex;
+  align-items: center;
+}
+
+.title .highlight {
+  color: #4caf50;
+  font-size: 32px; /* 글자 크기 키움 */
+}
+
+.title .bold {
+  font-weight: bold;
+  font-size: 32px; /* 글자 크기 키움 */
+}
+
+.header-right span {
+  margin-right: 10px;
+  font-size: 18px; /* 글자 크기 키움 */
+}
+
+.header-right button {
+  border-radius: 10px; /* 버튼 테두리 둥글게 */
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #d4d4d4;
+  padding: 10px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.nav button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav .active {
+  background-color: #4caf50;
+  color: white;
+  border-radius: 10px;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.controls button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.controls .active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.filters select {
+  margin: 0 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.device-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.device-table th, .device-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.device-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.device-table td {
+  background-color: #e0f7e9;
+}
+
+.device-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+.device-table tr:hover td {
+  background-color: #ddd;
+}
+
+.toggle-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  width: 60px; /* 버튼의 고정된 너비 설정 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle-button.on {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toggle-button.off {
+  background-color: #555;
+  color: white;
+}
+
+/* 추가 스타일 */
+.title .highlight {
+  color: #4caf50;
+}
+
+.title .bold {
+  font-weight: bold;
+}
+
+/* 표 글씨 크기 조정 */
+.device-table th, .device-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px; /* 글씨 크기 조정 */
+}
+
+.device-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.device-table td {
+  background-color: #e0f7e9;
+}
+
+.device-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+.device-table tr:hover td {
+  background-color: #ddd;
+}
+
+.filter-label {
+  margin-right: 10px;
+  font-size: 18px; /* 글씨 크기 조정 */
+  align-self: center;
+}

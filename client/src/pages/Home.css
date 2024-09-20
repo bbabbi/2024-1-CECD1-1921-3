@@ -1,0 +1,146 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 1440px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 32px; /* 글자 크기 키움 */
+}
+
+.header-left p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.header-right button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.header-right .signup {
+  background-color: #ffffff;
+  color: #4caf50;
+  border: 1px solid #4caf50;
+  border-radius: 10px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #d4d4d4;
+  padding: 10px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.nav button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.main-content {
+  text-align: center;
+  padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.main-content h1 {
+  font-size: 36px;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+.main-content p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.icon-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.icon {
+  font-size: 40px;
+  margin: 0 10px;
+}
+
+.main-content h2 {
+  font-size: 28px; /* '제어 및 모니터링' 글씨 크기 키움 */
+  margin-bottom: 40px; /* 선택 박스와의 간격 늘리기 */
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  background-color: #e0f7e9;
+  padding: 20px;
+  margin: 0 10px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button-icon {
+  font-size: 60px;
+  color: #4caf50;
+  margin-bottom: 10px;
+}
+
+.button p {
+  font-size: 18px;
+  color: #4caf50;
+}
