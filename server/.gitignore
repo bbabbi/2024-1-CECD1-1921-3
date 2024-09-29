@@ -40,3 +40,4 @@ application.yml
 *.sql
 #/src/main/resources/*.json
 #*.b64
+!appspec.yml
