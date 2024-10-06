@@ -34,8 +34,15 @@ jobs:
     - name: make application.yml
       run: |
         ## create application.yml
-        mkdir ./src/main/resources
+        mkdir -p ./src/main/resources
         cd ./src/main/resources
+
+        if [ ! -f ./application.yml ]; then
+          touch ./application.yml
+          echo "${{ secrets.CD_APPLICATION }}" >> ./application.yml
+        else
+          echo "application.yml 파일이 이미 존재합니다."
+        fi
 
         touch ./application.yml
 
