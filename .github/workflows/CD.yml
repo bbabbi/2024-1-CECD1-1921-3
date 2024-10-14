@@ -44,33 +44,45 @@ jobs:
           echo "application.yml 파일이 이미 존재합니다."
         fi
 
-        touch ./application.yml
-
         echo "${{ secrets.CD_APPLICATION }}" >> ./application.yml
         
         cat ./application.yml
       shell: bash
         
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: |
+        cd server
+        chmod +x gradlew
       
     - name: Build with Gradle # 실제 application build(-x 옵션을 통해 test는 제외)
-      run: ./gradlew build -x test
+      run: |
+        cd server
+        ./gradlew build -x test
       
     - name: Make Directory
-      run: mkdir -p deploy
+      run: |
+        cd server
+        mkdir -p deploy
       
     - name: Copy Jar
-      run: cp ./build/libs/*.jar ./deploy
+      run: |
+        cd server
+        cp ./build/libs/*.jar ./deploy
     
     - name: Copy appspec.yml
-      run: cp appspec.yml ./deploy
+      run: |
+        cd server
+        cp appspec.yml ./deploy
 
     - name: Copy script
-      run: cp ./scripts/*.sh ./deploy
+      run: |
+        cd server
+        cp ./scripts/*.sh ./deploy
       
     - name: Make zip file
-      run: zip -r ./cecd-1921.zip ./deploy
+      run: |
+        cd server
+        zip -r ./cecd-1921.zip ./deploy
       shell: bash
       
     - name: Configure AWS credentials
@@ -81,13 +93,16 @@ jobs:
         aws-region: ap-northeast-2
         
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./cecd-1921.zip s3://$S3_BUCKET_NAME/
+      run: |
+        cd server
+        aws s3 cp --region ap-northeast-2 ./cecd-1921.zip s3://$S3_BUCKET_NAME/
       
     - name: Deploy
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      run:
+      run: |
+        cd server
         aws deploy create-deployment 
         --application-name cecd-1921-deploy
         --deployment-group-name cecd-1921-deploy
