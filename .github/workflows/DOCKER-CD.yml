@@ -7,7 +7,7 @@ jobs:
   ci:
     runs-on: ubuntu-22.04
     env:
-      working-directory: ./server  # gradlew 파일이 위치한 디렉토리로 설정
+      working-directory: ./server  # server 디렉토리로 설정
 
     steps:
       - name: 체크아웃
@@ -29,7 +29,7 @@ jobs:
 
       - name: 빌드
         run: |
-          chmod +x ./gradlew  # ./gradlew로 경로 지정
+          chmod +x gradlew
           ./gradlew build -x test
         working-directory: ${{ env.working-directory }}  # server 디렉토리 내에서 빌드
         shell: bash
@@ -62,4 +62,5 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           script: |
             cd ~
+            chmod +x ./deploy.sh  # 실행 권한 부여
             ./deploy.sh
