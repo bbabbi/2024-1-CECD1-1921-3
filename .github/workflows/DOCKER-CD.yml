@@ -61,6 +61,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_KEY }}
           script: |
-            cd ~
-            chmod +x ./deploy.sh  # 실행 권한 부여
-            ./deploy.sh
+            cd /var/www
+            sudo chmod +x ./deploy.sh
+            sudo ./deploy.sh
