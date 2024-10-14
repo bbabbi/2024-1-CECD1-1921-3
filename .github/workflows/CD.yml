@@ -1,4 +1,3 @@
-# 워크플로우의 이름 지정
 name: CD
 
 on:
@@ -49,25 +48,39 @@ jobs:
       shell: bash
         
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: |
+        cd server
+        chmod +x gradlew
       
     - name: Build with Gradle # 실제 application build(-x 옵션을 통해 test는 제외)
-      run: ./gradlew build -x test
+      run: |
+        cd server
+        ./gradlew build -x test
       
     - name: Make Directory
-      run: mkdir -p deploy
+      run: |
+        cd server
+        mkdir -p deploy
       
     - name: Copy Jar
-      run: cp ./build/libs/*.jar ./deploy
+      run: |
+        cd server
+        cp ./build/libs/*.jar ./deploy
     
     - name: Copy appspec.yml
-      run: cp appspec.yml ./deploy
+      run: |
+        cd server
+        cp appspec.yml ./deploy
 
     - name: Copy script
-      run: cp ./scripts/*.sh ./deploy
+      run: |
+        cd server
+        cp ./scripts/*.sh ./deploy
       
     - name: Make zip file
-      run: zip -r ./cecd-1921.zip ./deploy
+      run: |
+        cd server
+        zip -r ./cecd-1921.zip ./deploy
       shell: bash
       
     - name: Configure AWS credentials
@@ -78,7 +91,13 @@ jobs:
         aws-region: ap-northeast-2
         
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./cecd-1921.zip s3://$S3_BUCKET_NAME/
+      run: |
+        cd server
+        aws s3 cp --region ap-northeast-2 ./cecd-1921.zip s3://$S3_BUCKET_NAME/
+    
+    - name: Change to server directory # Deploy 전에 server 디렉토리로 이동
+      run: cd server
+      shell: bash
     
     - name: Deploy
       env:
