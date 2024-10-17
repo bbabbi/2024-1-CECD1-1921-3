@@ -35,7 +35,7 @@ dependencies {
 	implementation("software.amazon.awssdk:s3:2.21.0")
 	//actuator
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'mysql:mysql-connector-java'
+	implementation 'mysql:mysql-connector-java:8.0.35'
 }
 
 tasks.named('test') {
