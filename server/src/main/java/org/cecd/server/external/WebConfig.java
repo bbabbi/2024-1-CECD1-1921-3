@@ -1,4 +1,4 @@
-package org.cecd.server.common.config;
+package org.cecd.server.external;
 
 // CORS error 해결을 위한 WebConfig.java
 // 추후 수정 필요
