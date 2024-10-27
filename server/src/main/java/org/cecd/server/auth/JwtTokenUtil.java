@@ -11,12 +11,12 @@ import java.util.Date;
 public class JwtTokenUtil {
 
     // JWT Token 발급
-    public static String createToken(String loginId, String key, long expireTimeMs) {
+    public static String createToken(String loginId, long expireTimeMs) {
         Claims claims = Jwts.claims();
         claims.put("loginId", loginId);
 
-        // 비밀키를 SecretKey로 생성
-        SecretKey secretKey = Keys.hmacShaKeyFor(key.getBytes());
+        // 안전한 비밀키 생성
+        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -31,11 +31,10 @@ public class JwtTokenUtil {
         return extractClaims(token, secretKey).get("loginId").toString();
     }
 
-    // 밝급된 Token이 만료 시간이 지났는지 체크
+    // 발급된 Token이 만료 시간이 지났는지 체크
     public static boolean isExpired(String token, String secretKey) {
         Date expiredDate = extractClaims(token, secretKey).getExpiration();
-        // Token의 만료 날짜가 지금보다 이전인지 check
-        return expiredDate.before(new Date());
+        return expiredDate.before(new Date()); // Token의 만료 날짜가 지금보다 이전인지 check
     }
 
     // SecretKey를 사용해 Token Parsing
