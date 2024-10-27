@@ -17,5 +17,6 @@ public class Member {
 
     private String loginId;
     private String password;
+    @Enumerated(EnumType.STRING)
     private MemberRole role;
 }
