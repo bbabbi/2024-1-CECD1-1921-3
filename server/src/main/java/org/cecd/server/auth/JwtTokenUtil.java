@@ -3,42 +3,49 @@ package org.cecd.server.auth;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 
+@Component
 public class JwtTokenUtil {
 
+    @Value("${jwt.secret}")
+    private String secretKeyString;
+
+    private SecretKey getSecretKey() {
+        return new SecretKeySpec(secretKeyString.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+    }
+
     // JWT Token 발급
-    public static String createToken(String loginId, long expireTimeMs) {
+    public String createToken(String loginId, long expireTimeMs) {
         Claims claims = Jwts.claims();
         claims.put("loginId", loginId);
-
-        // 안전한 비밀키 생성
-        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expireTimeMs))
-                .signWith(secretKey) // SecretKey 사용
+                .signWith(getSecretKey()) // Secure한 SecretKey 사용
                 .compact();
     }
 
     // Claims에서 loginId 꺼내기
-    public static String getLoginId(String token, String secretKey) {
-        return extractClaims(token, secretKey).get("loginId").toString();
+    public String getLoginId(String token) {
+        return extractClaims(token).get("loginId").toString();
     }
 
     // 발급된 Token이 만료 시간이 지났는지 체크
-    public static boolean isExpired(String token, String secretKey) {
-        Date expiredDate = extractClaims(token, secretKey).getExpiration();
+    public boolean isExpired(String token) {
+        Date expiredDate = extractClaims(token).getExpiration();
         return expiredDate.before(new Date()); // Token의 만료 날짜가 지금보다 이전인지 check
     }
 
     // SecretKey를 사용해 Token Parsing
-    private static Claims extractClaims(String token, String secretKey) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+    private Claims extractClaims(String token) {
+        return Jwts.parser().setSigningKey(getSecretKey()).parseClaimsJws(token).getBody();
     }
 }

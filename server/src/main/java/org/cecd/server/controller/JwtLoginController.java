@@ -9,6 +9,8 @@ import org.cecd.server.domain.Member;
 import org.cecd.server.dto.JoinRequest;
 import org.cecd.server.dto.LoginRequest;
 import org.cecd.server.service.MemberService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import org.springframework.validation.FieldError;
 public class JwtLoginController {
 
     private final MemberService memberService;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/join")
     public String join(@RequestBody @Valid JoinRequest joinRequest, BindingResult bindingResult) {
@@ -43,30 +46,28 @@ public class JwtLoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody @Valid LoginRequest loginRequest, BindingResult bindingResult,
-                        HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginRequest loginRequest, BindingResult bindingResult,
+                                        HttpServletResponse response) {
         Member member = memberService.login(loginRequest);
 
         if (member == null) {
-            bindingResult.reject("loginFail", "로그인 아이디 또는 비밀번호가 틀렸습니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 아이디 또는 비밀번호가 틀렸습니다.");
         }
 
         if (bindingResult.hasErrors()) {
-            return "로그인 실패";
+            return ResponseEntity.badRequest().body("로그인 실패: 입력 값에 오류가 있습니다.");
         }
 
-        // 로그인 성공 => Jwt Token 발급
         long expireTimeMs = 1000 * 60 * 60; // Token 유효 시간 = 60분
-        String jwtToken = JwtTokenUtil.createToken(member.getLoginId(), expireTimeMs);
+        String jwtToken = jwtTokenUtil.createToken(member.getLoginId(), expireTimeMs); // 인스턴스 메소드로 호출
 
-        // 발급한 Jwt Token을 Cookie를 통해 전송
         Cookie cookie = new Cookie("jwtToken", jwtToken);
-        cookie.setMaxAge(60 * 60); // 쿠키 유효 시간: 1시간
-        cookie.setHttpOnly(true); // JavaScript에서 접근할 수 없도록 설정
-        cookie.setPath("/"); // 쿠키 경로 설정
+        cookie.setMaxAge(60 * 60);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
         response.addCookie(cookie);
 
-        return "redirect:/jwt-login"; // 로그인 후 리다이렉트
+        return ResponseEntity.ok("로그인 성공");
     }
 
 
