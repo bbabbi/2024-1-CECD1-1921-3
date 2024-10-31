@@ -1,5 +1,6 @@
 package org.cecd.server.common;
 
+import org.cecd.server.exception.InvalidFilterConditionException;
 import org.cecd.server.exception.NotFoundException;
 import org.cecd.server.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,11 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ErrorResponse> handlerUnauthorizedException(UnauthorizedException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(ErrorResponse.of(e.getErrorMessage().getStatus(), e.getErrorMessage().getMessage()));
+    }
+
+    @ExceptionHandler(InvalidFilterConditionException.class)
+    protected ResponseEntity<ErrorResponse> handleInvalidFilterConditionException(InvalidFilterConditionException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(e.getErrorMessage()));
     }
 }
 
