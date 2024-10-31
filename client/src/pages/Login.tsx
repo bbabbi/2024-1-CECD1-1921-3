@@ -53,7 +53,7 @@ const Login: React.FC = () => {
 
                 <button type="submit">로그인하기</button>
                 <div className="login-options">
-                    <a href="/jwt-login/join">계정 생성하기</a>
+                    <a href="/join">계정 생성하기</a>
                     <span> OR </span>
                     <a href="/request-access">접근권한 요청하기</a>
                 </div>
