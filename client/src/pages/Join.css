@@ -1,0 +1,109 @@
+/* Join.css */
+
+.join-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('https://raw.githubusercontent.com/CSID-DGU/2024-1-CECD1-1921-3/f048b11294c34b065b2f28590595240e44a8862f/data/backgroundImg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+.join-form {
+  width: 100%;
+  max-width: 500px;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.join-form h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.join-form p {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.input-group input {
+  flex: 2;
+  height: 35px; /* 높이 조정 */
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f5f7fa;
+}
+
+.input-group button {
+  flex: 1;
+  height: 35px; /* 높이 조정 */
+  padding: 0.8rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.input-group button:hover {
+  background-color: #357ABD;
+}
+
+.join-form input,
+.join-form button {
+  width: 100%;
+  padding: 0.9rem;
+  margin: 0 auto 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #f5f7fa;
+}
+
+.join-form button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.join-form button:hover {
+  background-color: #357ABD;
+}
+
+
+.error-message {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: #5cb85c;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
