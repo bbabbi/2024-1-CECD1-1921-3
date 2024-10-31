@@ -1,15 +1,15 @@
 import React from 'react';
 
-const MyIframeComponent: React.FC = () => {
+const ResponsiveIframe: React.FC = () => {
   return (
-    <div>
+    <div style={{ width: '100vw', height: '100vh' }}>
       <iframe
         src="https://swiu_testbed.dongguk.edu/"
-        style={{ width: '1000px', height: '1500px' }}
+        style={{ width: '100%', height: '100%', border: 'none' }}
         title="SWIU Testbed"
       />
     </div>
   );
 };
 
-export default MyIframeComponent;
+export default ResponsiveIframe;
