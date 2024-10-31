@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/jwt-login")
@@ -28,13 +30,6 @@ public class JwtLoginController {
 
     @PostMapping("/join")
     public String join(@RequestBody @Valid JoinRequest joinRequest, BindingResult bindingResult) {
-        // loginId 중복 체크
-        if (memberService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
-            bindingResult.addError(new FieldError("joinRequest", "loginId", "로그인 아이디가 중복됩니다."));
-        } else {
-            return "사용 가능한 아이디입니다.";
-        }
-
         // password와 passwordCheck가 같은지 체크
         if (!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
             bindingResult.addError(new FieldError("joinRequest", "passwordCheck", "비밀번호가 일치하지 않습니다."));
@@ -46,6 +41,17 @@ public class JwtLoginController {
 
         memberService.join2(joinRequest);
         return "회원가입 성공";
+    }
+
+    // 아이디 중복 체크를 위한 API
+    @PostMapping("/check-duplicate")
+    public ResponseEntity<String> checkDuplicate(@RequestBody Map<String, String> payload) {
+        String loginId = payload.get("loginId");
+        if (memberService.checkLoginIdDuplicate(loginId)) {
+            return ResponseEntity.ok("중복된 아이디입니다.");
+        } else {
+            return ResponseEntity.ok("사용 가능한 아이디입니다.");
+        }
     }
 
     @PostMapping("/login")
