@@ -21,4 +21,5 @@ public class Device {
     private String buildingName; // ex : 신공학관
     private String location; // ex : 5145호
     private String catalog;
+    private String layoutImg;
 }
