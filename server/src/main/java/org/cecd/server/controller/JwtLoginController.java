@@ -31,7 +31,10 @@ public class JwtLoginController {
         // loginId 중복 체크
         if (memberService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
             bindingResult.addError(new FieldError("joinRequest", "loginId", "로그인 아이디가 중복됩니다."));
+        } else {
+            return "사용 가능한 아이디입니다.";
         }
+
         // password와 passwordCheck가 같은지 체크
         if (!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
             bindingResult.addError(new FieldError("joinRequest", "passwordCheck", "비밀번호가 일치하지 않습니다."));
