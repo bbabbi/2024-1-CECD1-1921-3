@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Control from './pages/Control';
 import Graph from './pages/Graph';
 import WarningLog from './pages/WarningLog';
+import Login from './pages/Login';
 
 const Router: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Router: React.FC = () => {
         <Route path="/control" element={<Control />} />
         <Route path="/graph" element={<Graph />} />
         <Route path="/warninglog" element={<WarningLog />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

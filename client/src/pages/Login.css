@@ -1,0 +1,79 @@
+/* Login.css */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url('https://raw.githubusercontent.com/CSID-DGU/2024-1-CECD1-1921-3/f048b11294c34b065b2f28590595240e44a8862f/data/backgroundImg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 500px; /* 박스 크기를 더 크게 */
+  padding: 3rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.login-form h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.login-form p {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 1rem;
+}
+
+.login-form input,
+.login-form button {
+  width: calc(100% - 2rem); /* 입력 필드와 버튼의 너비를 동일하게 */
+  padding: 0.9rem;
+  margin: 0 auto 1.2rem; /* 중앙 정렬 및 여백 추가 */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  display: block;
+  box-sizing: border-box;
+}
+
+.login-form button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #357ABD;
+}
+
+.login-options {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #4a90e2;
+}
+
+.login-options a {
+  color: #4a90e2;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-size: 1rem; /* 글자 크기 조정 */
+}
+
+.login-options span {
+  color: #979797;
+  font-weight: bold;
+}
