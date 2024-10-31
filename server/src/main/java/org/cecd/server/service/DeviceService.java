@@ -26,4 +26,11 @@ public class DeviceService {
     public List<Device> getDevicesByBuilding(String buildingName) {
         return deviceRepository.findByBuildingName(buildingName);
     }
+
+    public Device getDeviceByBuildingAndLocation(String buildingName, String location) {
+        return deviceRepository.findByBuildingNameAndLocation(buildingName, location)
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
 }

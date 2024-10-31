@@ -1,12 +1,11 @@
 package org.cecd.server.controller;
 
+import org.cecd.server.common.dto.ErrorMessage;
 import org.cecd.server.domain.Device;
 import org.cecd.server.exception.InvalidFilterConditionException;
+import org.cecd.server.exception.NotFoundException;
 import org.cecd.server.service.DeviceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +38,19 @@ public class DeviceController {
         }
 
         return deviceService.getDevicesByBuildingAndLocation(buildingName, location);
+    }
+
+    @GetMapping("/{buildingName}/{location}/layout")
+    public String getDeviceLayoutImage(
+            @PathVariable String buildingName,
+            @PathVariable String location) {
+
+        Device device = deviceService.getDeviceByBuildingAndLocation(buildingName, location);
+
+        if (device.getDeviceImg() == null) {
+            throw new NotFoundException(ErrorMessage.LAYOUT_NOT_FOUND);
+        }
+
+        return device.getDeviceImg();
     }
 }
