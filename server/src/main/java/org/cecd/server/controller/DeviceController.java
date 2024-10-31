@@ -51,6 +51,6 @@ public class DeviceController {
             throw new NotFoundException(ErrorMessage.LAYOUT_NOT_FOUND);
         }
 
-        return device.getDeviceImg();
+        return device.getLayoutImg();
     }
 }
