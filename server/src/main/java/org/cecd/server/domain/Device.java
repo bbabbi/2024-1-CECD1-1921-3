@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Device {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "device_id")
-    private Long id;
+    @Column(name = "device_id")
+    private String id;
 
     private String deviceImg;
     private String deviceName;
