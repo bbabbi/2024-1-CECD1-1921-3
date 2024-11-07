@@ -48,7 +48,7 @@ dependencies {
 	//Jsoup
 	implementation 'org.jsoup:jsoup:1.18.1'
 	// JSON 라이브러리
-	implementation 'org.json:json:20210307'
+	implementation 'org.json:json:20231013'
 	// Apache HttpClient 라이브러리
 	implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 }
