@@ -146,7 +146,7 @@ public class EnergyDataService {
     }
 
     // 매일 자정 테이블 초기화
-    @Scheduled(cron = "0 59 5 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void resetTableData() {
         energyDataRepository.deleteAll();
         resetAutoIncrement();
