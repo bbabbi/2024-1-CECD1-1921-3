@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import org.cecd.server.domain.EnergyData;
+import org.cecd.server.dto.EnergyUsageResponse;
 import org.cecd.server.repository.EnergyDataRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,6 +20,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -28,6 +30,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
+import java.util.stream.Collectors;
 
 @Service
 public class EnergyDataService {
@@ -36,6 +39,7 @@ public class EnergyDataService {
     private EnergyDataRepository energyDataRepository;
     @Autowired
     private EntityManagerFactory entityManagerFactory;
+    private final int THRESHOLD = 57056;
 
     @Scheduled(fixedRate = 300000)  // 5분마다 크롤링
     public void crawlData() {
@@ -177,5 +181,27 @@ public class EnergyDataService {
         java.util.regex.Pattern regex = java.util.regex.Pattern.compile(pattern);
         java.util.regex.Matcher matcher = regex.matcher(json);
         return matcher.find() ? matcher.group(1) : "";
+    }
+
+    public EnergyDataService(EnergyDataRepository energyDataRepository) {
+        this.energyDataRepository = energyDataRepository;
+    }
+
+    public List<EnergyUsageResponse> getAllEnergyUsages() {
+        return energyDataRepository.findAll().stream()
+                .map(data -> {
+                    double current = Double.parseDouble(data.getCurrent());
+                    double voltage = Double.parseDouble(data.getVoltage());
+                    double result = current * voltage;
+                    double percentage = (result / THRESHOLD) * 100;
+
+                    return new EnergyUsageResponse(
+                            data.getSensorNumber(),
+                            data.getDateTime(),
+                            result,
+                            percentage
+                    );
+                })
+                .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
     }
 }
