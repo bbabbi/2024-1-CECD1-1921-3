@@ -16,6 +16,7 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "device_id")
     private Long id;
 
+    private String sensorNumber;
     private String deviceImg;
     private String deviceName;
     private String buildingName; // ex : 신공학관
