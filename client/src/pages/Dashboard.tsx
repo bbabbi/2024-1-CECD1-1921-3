@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
     ];
 
     const chartData = {
-        labels: Array.from({ length: percentageData.length }, (_, i) => `Date ${i + 1}`),
+        labels: Array.from({ length: percentageData.length }, (_, i) => `Time ${i + 1}`),
         datasets: [{
             label: '전력량 (x10)',
             data: percentageData,
@@ -100,7 +100,7 @@ const Dashboard: React.FC = () => {
                         <h2>
                             <FaFolderOpen className="section-icon" /> IoT 기기 정보
                         </h2>
-                        <a href="/device">&gt; 자세히 보기</a>
+                        {/* <a href="/device">&gt; 자세히 보기</a> */}
                         <div className="device-list">
                             {devices.map((device, index) => (
                                 <div key={index} className="device-item">
