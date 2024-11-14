@@ -52,8 +52,11 @@ const Dashboard: React.FC = () => {
         datasets: [{
             label: '전력량 (x10)',
             data: percentageData,
-            fill: false,
-            borderColor: 'rgba(75, 192, 192, 1)',
+            fill: true,
+            backgroundColor: 'rgba(72, 128, 255, 0.2)',
+            borderColor: '#4880FF',
+            pointBackgroundColor: '#4880FF',
+            pointBorderColor: '#4880FF',
             tension: 0.1
         }]
     };
@@ -64,36 +67,58 @@ const Dashboard: React.FC = () => {
             <div className="dashboard-content" style={{ marginLeft: isSidebarOpen ? '280px' : '0' }}>
                 <h1 className="dashboard-title">Dashboard</h1>
                 <div className="info-section">
-                    <div className="room-info">
+                <div className="room-info">
+                    <div className="room-info-header">
                         <h2>
                             <FaPaperPlane className="section-icon" /> 호실별 정보
                         </h2>
-                        <p>신공학관 5145호</p>
+                        <a href="/roominfo" className="details-link">&gt; 자세히 보기</a>
+                    </div>
+                    <div className="room-info-content">
+                        <p className="room-info-title">신공학관 5145호</p>
                         <p>최근 강의 시간: 13:00 ~ 15:00</p>
                         <p>다음 강의 시간: 17:00 ~ 19:00</p>
-                        <a href="/roominfo">&gt; 자세히 보기</a>
+                        <div className="room-info-status">
+                            <div className="status-item">
+                                <p className="status-title">강의 진행 여부</p>
+                                <p className="status-value">O</p>
+                            </div>
+                            <div className="status-item">
+                                <p className="status-title">재실 여부</p>
+                                <p className="status-value">(강의중 측정 x)</p>
+                            </div>
+                            <div className="status-item">
+                                <p className="status-title">낭비 전력 발생</p>
+                                <p className="status-value">(강의중 측정 x)</p>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+
                     <div className="device-info">
                         <h2>
                             <FaFolderOpen className="section-icon" /> IoT 기기 정보
                         </h2>
+                        <a href="/device">&gt; 자세히 보기</a>
                         <div className="device-list">
                             {devices.map((device, index) => (
                                 <div key={index} className="device-item">
-                                    <img src={device.image} alt={device.name} className="device-image" />
-                                    <p>{device.name}</p>
+                                    <div className="device-content">
+                                        <img src={device.image} alt={device.name} className="device-image" />
+                                        <p className="device-name">{device.name}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
-                        <a href="/device">&gt; 자세히 보기</a>
                     </div>
                 </div>
                 <div className="energy-graph">
                     <h2>
                         <FaChartBar className="section-icon" /> 전력량 그래프
                     </h2>
+                    <a href="/device">&gt; 자세히 보기</a>
                     <Line data={chartData} />
-                    <a href="/energyusage">&gt; 자세히 보기</a>
                 </div>
             </div>
         </div>
