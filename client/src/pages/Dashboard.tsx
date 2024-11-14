@@ -61,6 +61,21 @@ const Dashboard: React.FC = () => {
         }]
     };
 
+    const chartOptions = {
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                grid: {
+                    color: "rgba(200, 200, 200, 0.3)" // 필요시 y축의 가로선 스타일 조정
+                }
+            }
+        }
+    };
+
     return (
         <div className="dashboard-container">
             <Sidebar onToggle={setIsSidebarOpen} />
@@ -118,7 +133,7 @@ const Dashboard: React.FC = () => {
                         <FaChartBar className="section-icon" /> 전력량 그래프
                     </h2>
                     <a href="/device">&gt; 자세히 보기</a>
-                    <Line data={chartData} />
+                    <Line data={chartData} options={chartOptions} />
                 </div>
             </div>
         </div>
