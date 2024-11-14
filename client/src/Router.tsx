@@ -20,8 +20,8 @@ const Router: React.FC = () => {
         <Route path="/graph" element={<Graph />} />
         <Route path="/warninglog" element={<WarningLog />} />
         <Route path="/admin" element={<Login />} />
-        <Route path="/join" element={<Join />} />
-        <Route path="/energyusage" element={<EnergyUsage />} />
+        <Route path="/admin/join" element={<Join />} />
+        <Route path="/admin/energyusage" element={<EnergyUsage />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
