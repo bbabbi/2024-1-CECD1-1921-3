@@ -1,0 +1,145 @@
+/* 기본 레이아웃 */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* 사이드바 */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #f5f7fa;
+  transform: translateX(-250px);
+  transition: transform 0.3s ease;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.toggle-button {
+  position: absolute;
+  top: 20px;
+  right: -40px;
+  background-color: #4e89ff;
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.nav-menu {
+  padding: 20px;
+}
+
+.nav-menu h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1921;
+}
+
+.nav-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.nav-menu ul li {
+  padding: 10px 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.nav-footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* 콘텐츠 */
+.content {
+  flex-grow: 1;
+  margin-left: 250px;
+  padding: 40px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.open + .content {
+  margin-left: 0;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* 그래프 섹션 */
+.graph-section, .data-section {
+  overflow: hidden;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.graph-section h3, .data-section h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* 테이블 */
+.table-container {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.data-table th, .data-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.data-table th {
+  font-weight: bold;
+  background-color: #f0f2f5;
+}
+
+.data-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .content {
+      margin-left: 0;
+      padding: 20px;
+  }
+  .sidebar {
+      width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+      transform: translateX(-200px);
+  }
+  .sidebar.open {
+      transform: translateX(0);
+  }
+  .content {
+      margin-left: 0;
+  }
+}
