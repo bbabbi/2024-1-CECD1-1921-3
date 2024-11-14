@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
             },
             y: {
                 grid: {
-                    color: "rgba(200, 200, 200, 0.3)" // 필요시 y축의 가로선 스타일 조정
+                    color: "rgba(200, 200, 200, 0.3)"
                 }
             }
         }
