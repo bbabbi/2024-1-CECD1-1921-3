@@ -19,10 +19,10 @@ const Router: React.FC = () => {
         <Route path="/control" element={<Control />} />
         <Route path="/graph" element={<Graph />} />
         <Route path="/warninglog" element={<WarningLog />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Login />} />
         <Route path="/join" element={<Join />} />
         <Route path="/energyusage" element={<EnergyUsage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
