@@ -1,3 +1,4 @@
+// Sidebar.tsx
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { FaBars, FaChartBar, FaDoorOpen, FaFolder, FaInfoCircle, FaCog, FaSignOutAlt, FaTimes } from "react-icons/fa";
 import styles from "./Sidebar.module.css";
@@ -60,27 +61,29 @@ const Sidebar: React.FC<SidebarProps> = ({ width = 280, children, onToggle }) =>
           {isOpen ? <FaTimes className={styles.menuIcon} /> : <FaBars className={styles.menuIcon} />}
         </button>
         <div className={styles.sidebarContent}>
-          <h2 className={styles.logo}>1921 <span>for admin</span></h2>
-          <nav className={styles.nav}>
-            <a href="/dashboard" className={styles.navItem}>
-              <FaChartBar className={styles.icon} /> Dashboard
-            </a>
-            <a href="/roominfo" className={styles.navItem}>
-              <FaDoorOpen className={styles.icon} /> 호실별 정보
-            </a>
-            <a href="/device" className={styles.navItem}>
-              <FaFolder className={styles.icon} /> IoT 기기 정보
-            </a>
-            <a href="/energyusage" className={styles.navItem}>
-              <FaChartBar className={styles.icon} /> 전력량 통계
-            </a>
-            <a href="/superadmin/help" className={styles.navItem}>
-              <FaInfoCircle className={styles.icon} /> 1921이란?
-            </a>
-          </nav>
+          <div className={styles.mainMenu}>
+            <h2 className={styles.logo}>1921 <span>for admin</span></h2>
+            <nav className={styles.nav}>
+              <a href="/admin/dashboard" className={styles.navItem}>
+                <FaChartBar className={styles.icon} /> Dashboard
+              </a>
+              <a href="/admin/roominfo" className={styles.navItem}>
+                <FaDoorOpen className={styles.icon} /> 호실별 정보
+              </a>
+              <a href="/admin/device" className={styles.navItem}>
+                <FaFolder className={styles.icon} /> IoT 기기 정보
+              </a>
+              <a href="/admin/energyusage" className={styles.navItem}>
+                <FaChartBar className={styles.icon} /> 전력량 통계
+              </a>
+              <a href="/admin/help" className={styles.navItem}>
+                <FaInfoCircle className={styles.icon} /> 1921이란?
+              </a>
+            </nav>
+          </div>
           <div className={styles.bottomMenu}>
-            <a href="/settings" className={styles.bottomItem}><FaCog className={styles.icon} /> Settings</a>
-            <a href="/logout" className={styles.bottomItem}><FaSignOutAlt className={styles.icon} /> Logout</a>
+            <a href="/superadmin/settings" className={styles.bottomItem}><FaCog className={styles.icon} /> Settings</a>
+            <a href="/admin/logout" className={styles.bottomItem}><FaSignOutAlt className={styles.icon} /> Logout</a>
           </div>
         </div>
       </div>
