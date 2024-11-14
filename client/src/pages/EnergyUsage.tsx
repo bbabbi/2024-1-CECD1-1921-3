@@ -1,88 +1,98 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { Line } from 'react-chartjs-2';
+import { FaChartBar, FaFolderOpen } from 'react-icons/fa';
+import Sidebar from './Sidebar';
 import './EnergyUsage.css';
 
 interface EnergyData {
     sensorNumber: string;
     dateTime: string;
-    result: number;
     percentage: number;
 }
 
 const EnergyUsage: React.FC = () => {
-    const [data, setData] = useState<EnergyData[]>([]);
-    const [isNavOpen, setIsNavOpen] = useState(false);
+    const [percentageData, setPercentageData] = useState<number[]>([]);
+    const [energyData, setEnergyData] = useState<EnergyData[]>([]);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://www.dgu1921.p-e.kr/energy-usage');
-                setData(response.data);
-            } catch (error) {
-                console.error("Error fetching energy usage data", error);
-            }
-        };
-        fetchData();
+        fetch('https://www.dgu1921.p-e.kr/energy-usage')
+            .then(response => response.json())
+            .then(data => {
+                const processedData = data.map((item: any) => ({
+                    sensorNumber: item.sensorNumber,
+                    dateTime: item.dateTime,
+                    percentage: item.percentage * 10,
+                }));
+                setEnergyData(processedData);
+                setPercentageData(processedData.map((item: EnergyData) => item.percentage));
+            })
+            .catch(() => {
+                setPercentageData([20, 30, 50, 70, 90, 60, 80]);
+                setEnergyData([
+                    { sensorNumber: '12345', dateTime: '2024-10-15 11:59:00', percentage: 20 },
+                    { sensorNumber: '12345', dateTime: '2024-10-15 11:59:00', percentage: 30 },
+                ]);
+            });
     }, []);
 
-    const toggleNav = () => {
-        setIsNavOpen(!isNavOpen);
+    const chartData = {
+        labels: Array.from({ length: percentageData.length }, (_, i) => `Time ${i + 1}`),
+        datasets: [{
+            label: '전력량 (x10)',
+            data: percentageData,
+            fill: true,
+            backgroundColor: 'rgba(72, 128, 255, 0.2)',
+            borderColor: '#4880FF',
+            pointBackgroundColor: '#4880FF',
+            pointBorderColor: '#4880FF',
+            tension: 0.1
+        }]
+    };
+
+    const chartOptions = {
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                grid: {
+                    color: "rgba(200, 200, 200, 0.3)"
+                }
+            }
+        }
     };
 
     return (
-        <div className="container">
-            <div className={`sidebar ${isNavOpen ? 'open' : ''}`}>
-                <button className="toggle-button" onClick={toggleNav}>
-                    ☰
-                </button>
-                <nav className="nav-menu">
-                    <h1>1921 for admin</h1>
-                    <ul>
-                        <li>Dashboard</li>
-                        <li>호실별 정보</li>
-                        <li>IoT 기기 정보</li>
-                        <li>전력량 통계</li>
-                        <li>1921이란?</li>
-                    </ul>
-                    <div className="nav-footer">
-                        <p>Settings</p>
-                        <p>Logout</p>
-                    </div>
-                </nav>
-            </div>
-            <div className="content">
-                <h2 className="title">전력량 통계</h2>
+        <div className="energy-dashboard-container">
+            <Sidebar onToggle={setIsSidebarOpen} />
+            <div className="energy-dashboard-content" style={{ marginLeft: isSidebarOpen ? '280px' : '0' }}>
+                <h1 className="dashboard-title">전력량 통계</h1>
+                
                 <div className="graph-section">
-                    <h3>전력량 그래프</h3>
-                    {/* isNavOpen 상태에 따라 width를 조정하여 불필요한 ResizeObserver 이벤트를 방지 */}
-                    <ResponsiveContainer width={isNavOpen ? "90%" : "100%"} height={300}>
-                        <LineChart data={data}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="dateTime" tickFormatter={(tick) => new Date(tick).toLocaleDateString()} />
-                            <YAxis domain={[0, 100]} />
-                            <Tooltip />
-                            <Line type="monotone" dataKey="percentage" stroke="#8884d8" dot />
-                        </LineChart>
-                    </ResponsiveContainer>
+                    <h2><FaChartBar className="section-icon" />전력량 그래프</h2>
+                    <Line data={chartData} options={chartOptions} />
                 </div>
+
                 <div className="data-section">
-                    <h3>전력량 데이터</h3>
-                    <div className="table-container">
-                        <table className="data-table">
+                    <h2><FaFolderOpen className="section-icon" /> 전력량 데이터</h2>
+                    <div className="energy-data-table-wrapper">
+                        <table className="energy-data-table">
                             <thead>
                                 <tr>
-                                    <th>센서 번호</th>
+                                    <th>기기번호</th>
                                     <th>시간</th>
                                     <th>전력량 (%)</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((item, index) => (
+                                {energyData.map((item, index) => (
                                     <tr key={index}>
                                         <td>{item.sensorNumber}</td>
-                                        <td>{new Date(item.dateTime).toLocaleString()}</td>
-                                        <td>{item.percentage.toFixed(2)}</td>
+                                        <td>{item.dateTime}</td>
+                                        <td>{item.percentage}</td>
                                     </tr>
                                 ))}
                             </tbody>
