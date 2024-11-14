@@ -22,7 +22,7 @@ const Login: React.FC = () => {
                 // JWT 토큰 저장
                 localStorage.setItem('jwtToken', response.data);
                 // 대시보드 페이지로 이동
-                navigate('/dashboard');
+                navigate('/admin/dashboard');
             } else {
                 alert("로그인에 실패했습니다. 아이디 또는 비밀번호를 확인하세요.");
             }

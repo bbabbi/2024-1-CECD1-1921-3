@@ -1,0 +1,61 @@
+.energy-dashboard-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.energy-dashboard-content {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.dashboard-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.graph-section, .data-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.graph-section h2, .data-section h2 {
+  font-size: 21px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.energy-data-table-wrapper {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.energy-data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.energy-data-table th, .energy-data-table td {
+  border: 1px solid #e0e0e0;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.energy-data-table th {
+  background-color: #f1f3f5;
+  font-weight: bold;
+}
+
+.energy-data-table tr:nth-child(even) {
+  background-color: #f7f9fc;
+}
