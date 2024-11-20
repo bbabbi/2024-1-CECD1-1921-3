@@ -20,16 +20,15 @@ class CommandControllerTest {
 
     @Test
     void sendControlCommand() {
+
         // 요청 데이터 생성
         CommandRequest commandRequest = new CommandRequest();
-        commandRequest.setSenserNumber("12345");
+        commandRequest.setSensorId("000100010000000093");
         commandRequest.setCommand(true);
 
-        // HTTP 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        // 요청 엔티티 생성
         HttpEntity<CommandRequest> request = new HttpEntity<>(commandRequest, headers);
 
         // 테스트용 엔드포인트로 POST 요청 전송
