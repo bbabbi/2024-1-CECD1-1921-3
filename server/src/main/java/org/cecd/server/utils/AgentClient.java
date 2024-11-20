@@ -26,7 +26,7 @@ public class AgentClient {
             restTemplate.postForEntity(AGENT_URL, request, String.class);
             return "Command sent successfully!";
         } catch (Exception e) {
-            return "Failed to send command to agent: " + e.getMessage();
+            return "Failed to send command: " + e.getMessage();
         }
     }
 }
