@@ -18,7 +18,7 @@ public class Command extends BaseTimeEntity {
     private Long commandId;
 
     @Column(nullable = false)
-    private String senserNumber;
+    private String sensorId;
 
     @Column(nullable = false)
     private boolean command; // true : ON, false : OFF
