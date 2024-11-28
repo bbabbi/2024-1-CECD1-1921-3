@@ -10,6 +10,8 @@ import Join from './pages/Join';
 import EnergyUsage from './pages/EnergyUsage';
 import Dashboard from './pages/Dashboard';
 import Help from './pages/Help';
+import Setting from './pages/Setting';
+import Device from './pages/Device';
 
 const Router: React.FC = () => {
   return (
@@ -25,6 +27,8 @@ const Router: React.FC = () => {
         <Route path="/admin/energyusage" element={<EnergyUsage />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/help" element={<Help />} />
+        <Route path="/superadmin/settings" element={<Setting />} />
+        <Route path="/admin/device" element={<Device />} />
       </Routes>
     </BrowserRouter>
   );

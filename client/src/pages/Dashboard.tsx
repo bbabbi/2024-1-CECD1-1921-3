@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
                         <h2>
                             <FaPaperPlane className="section-icon" /> 호실별 정보
                         </h2>
-                        <a href="/roominfo" className="details-link">&gt; 자세히 보기</a>
+                        <a href="/admin/roominfo" className="details-link">&gt; 자세히 보기</a>
                     </div>
                     <div className="room-info-content">
                         <p className="room-info-title">신공학관 5145호</p>
@@ -132,7 +132,7 @@ const Dashboard: React.FC = () => {
                     <h2>
                         <FaChartBar className="section-icon" /> 전력량 그래프
                     </h2>
-                    <a href="/device">&gt; 자세히 보기</a>
+                    <a href="/admin/energyUsage">&gt; 자세히 보기</a>
                     <Line data={chartData} options={chartOptions} />
                 </div>
             </div>
