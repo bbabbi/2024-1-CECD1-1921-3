@@ -21,6 +21,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.cors.CorsConfiguration;
 
 import java.io.IOException;
 
@@ -38,11 +39,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration configuration = new CorsConfiguration();
+                    configuration.addAllowedOrigin("https://dgutestbed.netlify.app");
+                    configuration.addAllowedMethod("*");
+                    configuration.addAllowedHeader("*");
+                    configuration.setAllowCredentials(true);
+                    return configuration;
+                }))
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 상태 없는 세션 관리
                 .addFilterBefore(new JwtTokenFilter(memberService, jwtTokenUtil), UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(authorize -> authorize // 권한 설정
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/jwt-login/info").authenticated()
                         .requestMatchers("/jwt-login/admin/**").hasAuthority(MemberRole.ADMIN.name())
                         .requestMatchers("/ws/**").permitAll() // WebSocket 엔드포인트 허용
