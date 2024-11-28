@@ -16,16 +16,17 @@ const Device: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLayoutModalOpen, setIsLayoutModalOpen] = useState(false);
   const [isCommandModalOpen, setIsCommandModalOpen] = useState(false);
-  const [currentDeviceName, setCurrentDeviceName] = useState<string>(""); // 현재 기기 이름
-  const [command, setCommand] = useState<boolean>(true); // ON이 기본값
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // 성공 모달 상태
+  const [currentDeviceName, setCurrentDeviceName] = useState<string>("");
+  const [command, setCommand] = useState<boolean>(true);
 
-  // 이미지 URL
   const layoutImage =
     "https://github.com/CSID-DGU/2024-1-CECD1-1921-3/blob/develop/data/IoTImg/%EB%B0%B0%EC%B9%98%EB%8F%84-%EC%8B%A0%EA%B3%B5%ED%95%99%EA%B4%805145%ED%98%B8.png?raw=true";
 
   const [building, setBuilding] = useState<string>("신공학관");
   const [room, setRoom] = useState<string>("5145호");
 
+  // IoT 기기 데이터 가져오기
   useEffect(() => {
     fetch(
       `https://www.dgu1921.p-e.kr/devices/filter?buildingName=${building}&location=${room}`
@@ -55,7 +56,7 @@ const Device: React.FC = () => {
   const sendCommand = () => {
     const payload = {
       sensorId: "000100010000000093",
-      command: command, // ON/OFF에 따라 true/false 전송
+      command: command,
     };
 
     fetch("https://www.dgu1921.p-e.kr/command", {
@@ -69,8 +70,13 @@ const Device: React.FC = () => {
       .then((data) => {
         console.log("Command response:", data);
         closeCommandModal();
+        setIsSuccessModalOpen(true); // 성공 모달 열기
       })
       .catch((error) => console.error("Error sending command:", error));
+  };
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
   };
 
   return (
@@ -173,7 +179,7 @@ const Device: React.FC = () => {
             >
               <p>
                 현재 '<strong className="device-name">{currentDeviceName}</strong>
-                ' 는 ON 상태입니다. 제어 명령을 전송하시겠습니까?
+                ' 는 {command ? "ON" : "OFF"} 상태입니다. 제어 명령을 전송하시겠습니까?
               </p>
               <div className="command-toggle">
                 <label>
@@ -196,10 +202,25 @@ const Device: React.FC = () => {
                 </label>
               </div>
               <button className="control-button" onClick={sendCommand}>
-                제어 명령 전송
+                전송
               </button>
               <button className="modal-close" onClick={closeCommandModal}>
                 X
+              </button>
+            </div>
+          </div>
+        )}
+
+        {isSuccessModalOpen && (
+          <div className="modal-overlay" onClick={closeSuccessModal}>
+            <div
+              className="modal-content command-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p>명령이 전송되었습니다.</p>
+              <br></br><br></br>
+              <button className="control-button" onClick={closeSuccessModal}>
+                확인
               </button>
             </div>
           </div>

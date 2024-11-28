@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.cecd.server.dto.CommandRequest;
 import org.cecd.server.service.CommandService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,5 +24,12 @@ public class CommandController {
     @PostMapping("/command")
     public ResponseEntity<CommandRequest> echoControlCommand(@RequestBody CommandRequest commandRequest) {
         return ResponseEntity.ok(commandRequest);
+    }
+
+    @MessageMapping("/socket/control") // 클라이언트가 이 경로로 메시지를 송신
+    @SendTo("/topic/commands") // 이 경로를 구독 중인 모든 클라이언트에게 메시지 전달
+    public CommandRequest sendCommand (CommandRequest commandRequest) {
+        System.out.println("Received command: " + commandRequest); // 로그 추가
+        return commandRequest; // command는 클라이언트로 전달할 메시지
     }
 }

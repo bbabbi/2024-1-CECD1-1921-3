@@ -45,7 +45,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize // 권한 설정
                         .requestMatchers("/jwt-login/info").authenticated()
                         .requestMatchers("/jwt-login/admin/**").hasAuthority(MemberRole.ADMIN.name())
-                        .anyRequest().permitAll()
+                        .requestMatchers("/ws/**").permitAll() // WebSocket 엔드포인트 허용
+                        .anyRequest().permitAll() // 추후 수정 예정
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling
