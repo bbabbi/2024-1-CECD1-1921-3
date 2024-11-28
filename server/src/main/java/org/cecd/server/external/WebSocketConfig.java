@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("http://localhost:3000","https://www.dgu1921.p-e.kr")
+                .setAllowedOriginPatterns("http://localhost:3000","https://www.dgu1921.p-e.kr", "https://dgutestbed.netlify.app")
                 .withSockJS();
     }
 }
