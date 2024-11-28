@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
 import { FaImages, FaBuilding } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import "./Device.css";
@@ -18,14 +20,62 @@ const Device: React.FC = () => {
   const [isCommandModalOpen, setIsCommandModalOpen] = useState(false);
   const [currentDeviceName, setCurrentDeviceName] = useState<string>(""); // 현재 기기 이름
   const [command, setCommand] = useState<boolean>(true); // ON이 기본값
-
-  // 이미지 URL
-  const layoutImage =
-    "https://github.com/CSID-DGU/2024-1-CECD1-1921-3/blob/develop/data/IoTImg/%EB%B0%B0%EC%B9%98%EB%8F%84-%EC%8B%A0%EA%B3%B5%ED%95%99%EA%B4%805145%ED%98%B8.png?raw=true";
-
+  const [stompClient, setStompClient] = useState<Client | null>(null);
   const [building, setBuilding] = useState<string>("신공학관");
   const [room, setRoom] = useState<string>("5145호");
 
+  // WebSocket 클라이언트 초기화
+  useEffect(() => {
+    const client = new Client({
+      webSocketFactory: () => new SockJS("http://localhost:8080/ws", "https://www.dgu1921.p-e.kr/ws"),
+      onConnect: () => {
+        console.log("WebSocket connected");
+
+        // /topic/commands 구독
+        client.subscribe("/topic/commands", (message) => {
+          const data = JSON.parse(message.body);
+          console.log("Received message via WebSocket:", data);
+
+          // 브로드캐스트된 메시지에 따라 모달창 표시
+          setCurrentDeviceName(data.deviceName);
+          setCommand(data.command);
+          setIsCommandModalOpen(true);
+        });
+      },
+      onDisconnect: () => {
+        console.log("WebSocket disconnected");
+      },
+    });
+
+    client.activate();
+    setStompClient(client);
+
+    return () => {
+      client.deactivate();
+    };
+  }, []);
+
+  // 제어 명령 전송 (WebSocket 사용)
+  const sendCommand = () => {
+    if (stompClient && stompClient.active) { // 활성화 여부 확인
+      const payload = {
+        deviceName: currentDeviceName,
+        command: command, // true: ON, false: OFF
+      };
+  
+      stompClient.publish({
+        destination: "/app/socket/control",
+        body: JSON.stringify(payload),
+      });
+  
+      console.log("Command sent via WebSocket:", payload);
+      setIsCommandModalOpen(false); // 모달 닫기
+    } else {
+      console.error("WebSocket is not connected or not active.");
+    }
+  };  
+
+  // IoT 기기 데이터 가져오기
   useEffect(() => {
     fetch(
       `https://www.dgu1921.p-e.kr/devices/filter?buildingName=${building}&location=${room}`
@@ -35,43 +85,12 @@ const Device: React.FC = () => {
       .catch((error) => console.error("Error fetching device data:", error));
   }, [building, room]);
 
-  const openLayoutModal = () => {
-    setIsLayoutModalOpen(true);
-  };
+  const openLayoutModal = () => setIsLayoutModalOpen(true);
+  const closeLayoutModal = () => setIsLayoutModalOpen(false);
+  const closeCommandModal = () => setIsCommandModalOpen(false);
 
-  const closeLayoutModal = () => {
-    setIsLayoutModalOpen(false);
-  };
-
-  const openCommandModal = (deviceName: string) => {
-    setCurrentDeviceName(deviceName);
-    setIsCommandModalOpen(true);
-  };
-
-  const closeCommandModal = () => {
-    setIsCommandModalOpen(false);
-  };
-
-  const sendCommand = () => {
-    const payload = {
-      sensorId: "000100010000000093",
-      command: command, // ON/OFF에 따라 true/false 전송
-    };
-
-    fetch("https://www.dgu1921.p-e.kr/command", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Command response:", data);
-        closeCommandModal();
-      })
-      .catch((error) => console.error("Error sending command:", error));
-  };
+  const layoutImage =
+    "https://github.com/CSID-DGU/2024-1-CECD1-1921-3/blob/develop/data/IoTImg/%EB%B0%B0%EC%B9%98%EB%8F%84-%EC%8B%A0%EA%B3%B5%ED%95%99%EA%B4%805145%ED%98%B8.png?raw=true";
 
   return (
     <div className="dashboard-container">
@@ -136,12 +155,16 @@ const Device: React.FC = () => {
                       </button>
                     </td>
                     <td>
-                      <button
-                        className="control-button"
-                        onClick={() => openCommandModal(device.deviceName)}
-                      >
-                        제어 명령 전송
-                      </button>
+                    <button
+                      className="control-button"
+                      onClick={() => {
+                        setCurrentDeviceName(device.deviceName); // 클릭된 기기의 이름을 설정
+                        setCommand(true); // 기본값으로 ON 상태 설정 (필요 시 조정 가능)
+                        setIsCommandModalOpen(true); // 모달 열기
+                      }}
+                    >
+                      제어 명령 전송
+                    </button>
                     </td>
                   </tr>
                 ))}
@@ -172,8 +195,8 @@ const Device: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <p>
-                현재 '<strong className="device-name">{currentDeviceName}</strong>
-                ' 는 ON 상태입니다. 제어 명령을 전송하시겠습니까?
+                현재 '<strong className="device-name">{currentDeviceName || "스마트 IoT 기기"}</strong>'
+                는 {command ? "ON" : "OFF"} 상태입니다. 제어 명령을 전송하시겠습니까?
               </p>
               <div className="command-toggle">
                 <label>
