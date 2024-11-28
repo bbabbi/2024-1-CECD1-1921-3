@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
 import { FaImages, FaBuilding } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import "./Device.css";
@@ -16,15 +18,43 @@ const Device: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLayoutModalOpen, setIsLayoutModalOpen] = useState(false);
   const [isCommandModalOpen, setIsCommandModalOpen] = useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); // 성공 모달 상태
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [currentDeviceName, setCurrentDeviceName] = useState<string>("");
   const [command, setCommand] = useState<boolean>(true);
+  const [stompClient, setStompClient] = useState<Client | null>(null);
 
   const layoutImage =
     "https://github.com/CSID-DGU/2024-1-CECD1-1921-3/blob/develop/data/IoTImg/%EB%B0%B0%EC%B9%98%EB%8F%84-%EC%8B%A0%EA%B3%B5%ED%95%99%EA%B4%805145%ED%98%B8.png?raw=true";
 
   const [building, setBuilding] = useState<string>("신공학관");
   const [room, setRoom] = useState<string>("5145호");
+
+  // WebSocket 초기화
+  useEffect(() => {
+    const client = new Client({
+      webSocketFactory: () => new SockJS("https://www.dgu1921.p-e.kr/ws"),
+      onConnect: () => {
+        console.log("WebSocket connected");
+        client.subscribe("/topic/commands", (message) => {
+          const data = JSON.parse(message.body);
+          console.log("Received message via WebSocket:", data);
+          setCurrentDeviceName(data.deviceName);
+          setCommand(data.command);
+          setIsCommandModalOpen(true); // WebSocket 수신 시 모달창 표시
+        });
+      },
+      onDisconnect: () => {
+        console.log("WebSocket disconnected");
+      },
+    });
+
+    client.activate();
+    setStompClient(client);
+
+    return () => {
+      client.deactivate();
+    };
+  }, []);
 
   // IoT 기기 데이터 가져오기
   useEffect(() => {
@@ -44,9 +74,26 @@ const Device: React.FC = () => {
     setIsLayoutModalOpen(false);
   };
 
+  const sendWebSocketCommand = (deviceName: string) => {
+    if (stompClient && stompClient.connected) {
+      const payload = {
+        deviceName: deviceName,
+        command: command,
+      };
+      stompClient.publish({
+        destination: "/app/socket/control",
+        body: JSON.stringify(payload),
+      });
+      console.log("Command sent via WebSocket:", payload);
+    } else {
+      console.error("WebSocket is not connected.");
+    }
+  };
+
   const openCommandModal = (deviceName: string) => {
     setCurrentDeviceName(deviceName);
     setIsCommandModalOpen(true);
+    sendWebSocketCommand(deviceName); // WebSocket 메시지 전송
   };
 
   const closeCommandModal = () => {
@@ -178,7 +225,7 @@ const Device: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <p>
-                현재 '<strong className="device-name">{currentDeviceName}</strong>
+                현재 '<strong className="device-name">{currentDeviceName || "스마트 IoT 기기"}</strong>
                 ' 는 {command ? "ON" : "OFF"} 상태입니다. 제어 명령을 전송하시겠습니까?
               </p>
               <div className="command-toggle">
