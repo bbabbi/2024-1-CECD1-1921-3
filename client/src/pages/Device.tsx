@@ -228,9 +228,12 @@ const Device: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <p>
-                <br></br>
-                현재 '<strong className="device-name">{currentDeviceName || "스마트 IoT 기기"}</strong>
-                ' 는 {command ? "ON" : "OFF"} 상태입니다.<br></br><br></br>제어 명령을 전송하시겠습니까?
+                <br />
+                현재 '<strong className="device-name">{currentDeviceName || "스마트 IoT 기기"}</strong>'
+                는 <strong className="device-command">{!command ? "ON" : "OFF"}</strong> 상태입니다.
+                <br />
+                <br />
+                제어 명령을 전송하시겠습니까?
               </p>
               <div className="command-toggle">
                 <label>
@@ -262,6 +265,7 @@ const Device: React.FC = () => {
           </div>
         )}
 
+
         {isSuccessModalOpen && (
           <div className="modal-overlay" onClick={closeSuccessModal}>
             <div
@@ -269,7 +273,6 @@ const Device: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <p>명령이 전송되었습니다.</p>
-              <br></br><br></br>
               <button className="control-button" onClick={closeSuccessModal}>
                 확인
               </button>

@@ -231,6 +231,10 @@ select {
   margin-right: 8px;
 }
 
+.device-command {
+  font-size: 18px;
+}
+
 /* 기기 이름 폰트 스타일 */
 .device-name {
   font-size: 18px;
