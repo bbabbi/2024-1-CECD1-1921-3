@@ -83,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({ width = 280, children, onToggle }) =>
           </div>
           <div className={styles.bottomMenu}>
             <a href="/superadmin/settings" className={styles.bottomItem}><FaCog className={styles.icon} /> Settings</a>
-            <a href="/admin/logout" className={styles.bottomItem}><FaSignOutAlt className={styles.icon} /> Logout</a>
+            <a href="/" className={styles.bottomItem}><FaSignOutAlt className={styles.icon} /> Logout</a>
           </div>
         </div>
       </div>
