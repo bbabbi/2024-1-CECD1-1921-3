@@ -145,11 +145,14 @@ const Device: React.FC = () => {
                 </select>
               </label>
               <label>
-                <span>호수 선택</span>
-                <select value={room} onChange={(e) => setRoom(e.target.value)}>
-                  <option value="5145호">5145호</option>
-                </select>
-              </label>
+              <span>호수 선택</span>
+              <select value={room} onChange={(e) => setRoom(e.target.value)}>
+                <option value="5141호">5141호</option>
+                <option value="5143호">5143호</option>
+                <option value="5145호">5145호</option>
+                <option value="5147호">5147호</option>
+              </select>
+            </label>
             </div>
             <button className="layout-button" onClick={openLayoutModal}>
               <FaImages className="button-icon" /> IoT 기기 배치도 조회
@@ -225,8 +228,9 @@ const Device: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <p>
+                <br></br>
                 현재 '<strong className="device-name">{currentDeviceName || "스마트 IoT 기기"}</strong>
-                ' 는 {command ? "ON" : "OFF"} 상태입니다. 제어 명령을 전송하시겠습니까?
+                ' 는 {command ? "ON" : "OFF"} 상태입니다.<br></br><br></br>제어 명령을 전송하시겠습니까?
               </p>
               <div className="command-toggle">
                 <label>
