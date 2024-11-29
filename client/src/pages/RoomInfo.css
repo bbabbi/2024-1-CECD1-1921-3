@@ -1,0 +1,201 @@
+/* 전체 레이아웃 */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f4f7fc;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  font-family: "Pretendard", Arial, sans-serif;
+}
+
+/* 타이틀 */
+.dashboard-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* 장소 선택 */
+.device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.location-select {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+/* 박스 유지 */
+.device-section {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.room-title {
+  font-size: 25px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* 테이블 */
+.device-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+.device-table th,
+.device-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.device-table th {
+  background-color: #f9fafc;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 테이블 헤더 스타일 */
+.device-table thead th {
+  background-color: #f4f4f4; /* 옅은 회색 배경 */
+  font-weight: bold; /* 폰트를 굵게 설정 */
+  color: #333; /* 텍스트 색상 */
+  padding: 15px; /* 여백 추가 */
+  text-align: center; /* 중앙 정렬 */
+  border-bottom: 2px solid #ddd; /* 하단 테두리 추가 */
+}
+
+.device-table td {
+  color: #333;
+}
+
+.device-table tr:hover {
+  background-color: #f0f0f0 !important;
+}
+
+/* 제어 버튼 */
+.control-button {
+  background-color: #4880ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.control-button:hover {
+  background-color: #3a6bdb;
+}
+
+/* 모달 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+  position: relative;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* 모달 텍스트 */
+.modal-content p {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 모달 닫기 버튼 */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+.modal-close:hover {
+  color: #ff0000;
+}
+
+/* 명령 토글 */
+.command-toggle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 15px 0;
+}
+
+.command-toggle label {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.command-toggle input {
+  margin-right: 8px;
+}
+
+/* 기기 이름 스타일 */
+.device-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+.control-content {
+  font-size: 18px;
+  color: #000;
+}

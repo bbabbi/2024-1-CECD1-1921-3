@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard';
 import Help from './pages/Help';
 import Setting from './pages/Setting';
 import Device from './pages/Device';
+import RoomInfo from './pages/RoomInfo';
 
 const Router: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const Router: React.FC = () => {
         <Route path="/admin/help" element={<Help />} />
         <Route path="/superadmin/settings" element={<Setting />} />
         <Route path="/admin/device" element={<Device />} />
+        <Route path="/admin/roominfo" element={<RoomInfo />} />
       </Routes>
     </BrowserRouter>
   );
