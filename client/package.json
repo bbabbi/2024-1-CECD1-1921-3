@@ -57,5 +57,6 @@
   },
   "devDependencies": {
     "@types/sockjs-client": "^1.5.4"
-  }
+  },
+  "proxy": "https://www.dgu1921.p-e.kr"
 }
