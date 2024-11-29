@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -17,14 +18,13 @@ public class OccupancyService {
     private final LectureScheduleRepository lectureScheduleRepository;
 
     public OccupancyResponse getOccupancyInfo(String location) {
+        // KST 시간대 설정
+        ZoneId zoneId = ZoneId.of("Asia/Seoul");
+
         // 현재 시간 및 요일 가져오기
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(zoneId); // KST로 현재 시간 가져오기
         String currentDay = now.getDayOfWeek().toString(); // 현재 요일 동적으로 설정
         LocalTime currentTime = LocalTime.of(now.getHour(), now.getMinute()); // 초 단위 제거
-
-        // 로그 추가
-        System.out.println("Current Time: " + currentTime);
-        System.out.println("Current Day: " + currentDay);
 
         // 해당 location의 강의 일정 가져오기
         List<LectureSchedule> schedules = lectureScheduleRepository.findByLocationAndLectureDay(location, currentDay);
