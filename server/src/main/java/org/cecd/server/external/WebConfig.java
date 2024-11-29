@@ -12,9 +12,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") //어떤 URI로 들어오는 요청을 허용할 것인가?
-                .allowedOrigins("*") // 모두 허용
+        registry.addMapping("/**")
+                .allowedOrigins(
+                        "http://localhost:3000",
+                        "https://www.dgu1921.p-e.kr",
+                        "https://dgutestbed.netlify.app"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }

@@ -24,6 +24,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.io.IOException;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -41,10 +42,15 @@ public class SecurityConfig {
         httpSecurity
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
-                    configuration.addAllowedOrigin("*");
-                    configuration.addAllowedMethod("*");
-                    configuration.addAllowedHeader("*");
-                    configuration.setAllowCredentials(true);
+                    // 명시적으로 허용할 Origin 설정
+                    configuration.setAllowedOrigins(List.of(
+                            "http://localhost:3000",
+                            "https://www.dgu1921.p-e.kr",
+                            "https://dgutestbed.netlify.app"
+                    ));
+                    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    configuration.setAllowedHeaders(List.of("*"));
+                    configuration.setAllowCredentials(true); // Credentials 허용
                     return configuration;
                 }))
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
@@ -62,7 +68,6 @@ public class SecurityConfig {
                                 .authenticationEntryPoint(new AuthenticationEntryPoint() {
                                     @Override
                                     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-                                        // API에서 인증 실패 시 에러를 그대로 출력
                                         if (!request.getRequestURI().contains("api")) {
                                             response.sendRedirect("/jwt-login/authentication-fail");
                                         } else {
@@ -85,3 +90,4 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 }
+
